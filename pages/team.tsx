@@ -27,7 +27,7 @@ const Team: React.FC = () => {
                 <div className="space-y-2 xl:flex xl:items-center xl:justify-between">
                   <div className="font-medium text-lg leading-6 space-y-1">
                     <h3 className="text-white">JongSikKim</h3>
-                    <p className="text-indigo-400">Junior Software Engeneer</p>
+                    <p className="text-indigo-400">Junior Software Engineer</p>
                   </div>
 
                   <ul className="flex justify-center space-x-5">
