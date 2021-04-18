@@ -80,17 +80,10 @@ const Header: React.FC = () => {
               </svg>
             </button>
           </div>
-          <div className="flex-1 flex items-center pt-4 justify-center sm:items-stretch sm:justify-start">
+          <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex-shrink-0 flex items-center">
               <a href="/">
-                <Image
-                  width={200}
-                  height={50}
-                  objectFit="cover"
-                  className="hidden lg:block"
-                  src="/logos/logo_transparent.png"
-                  alt="logo"
-                />
+                <p className="text-white font-bold text-3xl">JBU Project</p>
               </a>
             </div>
             <div className="hidden sm:block sm:ml-6">
