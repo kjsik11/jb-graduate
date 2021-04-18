@@ -46,6 +46,7 @@ const Team: React.FC = () => {
             </h2>
             <p className="text-xl text-gray-300">대충정했조 조원 소개</p>
           </div>
+
           <ul className="space-y-4 max-w-3xl mx-auto sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0">
             {teamItems.map((item, idx) => (
               <li
