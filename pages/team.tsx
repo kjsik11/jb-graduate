@@ -35,7 +35,7 @@ const teamItems = [
     git: 'https://github.com/kjsik11',
   },
 ];
-const Team: React.FC = () => {
+const TeamPage: React.FC = () => {
   return (
     <Root className="bg-gray-900">
       <div className="mx-auto py-4 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-8">
@@ -96,4 +96,4 @@ const Team: React.FC = () => {
   );
 };
 
-export default Team;
+export default TeamPage;

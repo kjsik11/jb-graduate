@@ -2,7 +2,6 @@ import { Transition } from '@headlessui/react';
 import React from 'react';
 import styled from 'styled-components';
 
-import Image from 'next/image';
 const Root = styled.div`
   position: fixed;
   top: 0;
@@ -21,12 +20,12 @@ const menuItems = [
     path: '/team',
   },
   {
-    label: 'Projects',
-    path: '/',
+    label: 'Project',
+    path: '/project',
   },
   {
-    label: 'Calendar',
-    path: '/',
+    label: 'Schedule',
+    path: '/schedule',
   },
 ];
 
