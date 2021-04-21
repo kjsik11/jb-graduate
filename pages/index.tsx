@@ -8,7 +8,7 @@ const HomePage: React.FC = () => {
       <Head>
         <title>대충만든조 졸업작품</title>
       </Head>
-      <div className="bg-gray-100 h-full">
+      <div className="h-full">
         <div className="max-w-7xl mx-auto text-center py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
           <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
             <span className="block">대충 만든조 홈페이지</span>
@@ -28,7 +28,7 @@ const HomePage: React.FC = () => {
             <div className="ml-3 inline-flex">
               <a
                 href="/team"
-                className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200"
+                className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-white hover:bg-indigo-100"
               >
                 조원 보러가기
               </a>
