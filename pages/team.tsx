@@ -8,31 +8,31 @@ const Root = styled.div``;
 const teamItems = [
   {
     name: '김종식',
-    description: '웹 개발 총괄',
+    description: '웹 개발',
     url: '/',
     insta: 'https://www.instagram.com/kjjjongsk',
     git: 'https://github.com/kjsik11',
   },
   {
     name: '지창환',
-    description: 'Api개발',
+    description: 'Artifacts 분석 및 개발',
     url: '/',
-    insta: 'https://www.instagram.com/kjjjongsk',
-    git: 'https://github.com/kjsik11',
+    insta: 'https://www.instagram.com/hwan.j95',
+    git: 'https://github.com/hwans95',
   },
   {
     name: '최예지',
-    description: 'Api개발',
+    description: 'API 개발',
     url: '/',
-    insta: 'https://www.instagram.com/kjjjongsk',
-    git: 'https://github.com/kjsik11',
+    insta: 'https://www.instagram.com/kongji_s',
+    git: 'https://github.com/choikongji',
   },
   {
     name: '염정현',
-    description: 'Api개발',
+    description: 'Artifacts 분석 및 개발',
     url: '/',
-    insta: 'https://www.instagram.com/kjjjongsk',
-    git: 'https://github.com/kjsik11',
+    insta: null,
+    git: 'https://github.com/yeom0331',
   },
 ];
 const TeamPage: React.FC = () => {
@@ -44,7 +44,6 @@ const TeamPage: React.FC = () => {
             <h2 className="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
               Meet our team
             </h2>
-            <p className="text-xl text-gray-300">대충정했조 조원 소개</p>
           </div>
 
           <ul className="space-y-4 max-w-3xl mx-auto sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0">
@@ -68,6 +67,7 @@ const TeamPage: React.FC = () => {
                     <ul className="flex justify-center space-x-5">
                       <li>
                         <a
+                          target="blank"
                           href={item.git}
                           className="text-gray-400 hover:text-gray-300"
                         >
@@ -76,13 +76,16 @@ const TeamPage: React.FC = () => {
                         </a>
                       </li>
                       <li>
-                        <a
-                          href={item.insta}
-                          className="text-gray-400 hover:text-gray-300"
-                        >
-                          <span className="sr-only">insta</span>
-                          <Insta className="w-5 h-5 hover:opacity-80" />
-                        </a>
+                        {item.insta && (
+                          <a
+                            target="blank"
+                            href={item.insta}
+                            className="text-gray-400 hover:text-gray-300"
+                          >
+                            <span className="sr-only">insta</span>
+                            <Insta className="w-5 h-5 hover:opacity-80" />
+                          </a>
+                        )}
                       </li>
                     </ul>
                   </div>
