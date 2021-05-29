@@ -1,17 +1,8 @@
 import React from 'react';
 import cn from 'classnames';
-import styled from 'styled-components';
 
-import { Head } from '@components/core';
-import { Button } from '@components/ui';
 import ChevronRight from '@components/icons/ChevronRight';
-
-const Root = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-
-  height: 1000px;
-`;
+import Button from '@components/ui/Button';
 
 const items = [
   {
@@ -84,10 +75,7 @@ const ProjectPage: React.FC = () => {
 
   return (
     <>
-      <Head>
-        <title>프로젝트</title>
-      </Head>
-      <Root className="max-w-4xl p-4">
+      <div className="max-w-4xl p-4">
         <p className="mt-5 mb-4 text-4xl font-bold">
           Window Artifacts Analysis Online Page
         </p>
@@ -188,7 +176,7 @@ const ProjectPage: React.FC = () => {
             ))}
           </ul>
         </div>
-      </Root>
+      </div>
       <input
         ref={inputRef}
         type="file"

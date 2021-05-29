@@ -1,68 +1,186 @@
 import React from 'react';
 
+interface NotiContent {
+  variant?: 'default' | 'alert';
+  title: string;
+  content?: string;
+}
+
+interface ModalContent {
+  variant?: 'default' | 'alert';
+  title: string;
+  content: string;
+  actionButton: {
+    label: string;
+    onClick: () => void;
+  };
+  cancelButton: {
+    label: string;
+    onClick: () => void;
+  };
+}
+
 export interface State {
-  displayModal: boolean;
+  notiFlag: boolean;
+  notiContent: NotiContent;
+  modalFlag: boolean;
+  modalContent: ModalContent;
 }
 
 export interface StateWithActions extends State {
-  openModal: () => void;
+  showNoti: (noti: NotiContent, autoCloseDuration?: number) => void;
+  closeNoti: () => void;
+  showModal: (modal: ModalContent) => void;
   closeModal: () => void;
 }
 
 const initialState: State = {
-  displayModal: false,
+  notiFlag: false,
+  notiContent: { title: '' },
+  modalFlag: false,
+  modalContent: {
+    title: '',
+    content: '',
+    actionButton: { label: '확인', onClick: () => {} },
+    cancelButton: { label: '취소', onClick: () => {} },
+  },
 };
 
 const initialStateWithActions: StateWithActions = {
   ...initialState,
-  openModal: () => {},
+  showNoti: () => {},
+  closeNoti: () => {},
+  showModal: () => {},
   closeModal: () => {},
 };
-
-type Action =
-  | {
-      type: 'OPEN_MODAL';
-    }
-  | {
-      type: 'CLOSE_MODAL';
-    };
 
 export const UIContext = React.createContext<StateWithActions>(
   initialStateWithActions,
 );
 
-const uiReducer: (state: State, action: Action) => State = (state, action) => {
-  switch (action.type) {
-    case 'OPEN_MODAL': {
-      return {
-        ...state,
-        displayModal: true,
-      };
-    }
-    case 'CLOSE_MODAL': {
-      return {
-        ...state,
-        displayModal: false,
-      };
-    }
-  }
-};
-
 export const UIProvider: React.FC = ({ ...props }) => {
-  const [state, dispatch] = React.useReducer(uiReducer, initialState);
-  const openModal = () => dispatch({ type: 'OPEN_MODAL' });
-  const closeModal = () => dispatch({ type: 'CLOSE_MODAL' });
+  const [state, setState] = React.useState<State>(initialState);
+  const timer = React.useRef<NodeJS.Timeout | null>(null);
 
-  const value: StateWithActions = React.useMemo(
-    () => ({
-      ...state,
-      openModal,
-      closeModal,
-    }),
-    [state],
+  const closeNoti = React.useCallback(() => {
+    if (timer.current) clearTimeout(timer.current);
+
+    setState((prev) => {
+      const updatedState: State = {
+        ...prev,
+        notiFlag: false,
+      };
+      // sessionStorage.setItem('@UIContext', JSON.stringify(updatedState));
+      return updatedState;
+    });
+    setTimeout(() => {
+      setState((prev) => {
+        const updatedState: State = {
+          ...prev,
+          notiContent: { variant: 'default', title: '', content: '' },
+          notiFlag: false,
+        };
+        // sessionStorage.setItem('@UIContext', JSON.stringify(updatedState));
+        return updatedState;
+      });
+    }, 100);
+  }, []);
+
+  const showNoti = React.useCallback(
+    (
+      notiContent: {
+        variant?: 'default' | 'alert';
+        title: string;
+        content?: string;
+      },
+      duration?: number,
+    ) => {
+      setState((prev) => {
+        const updatedState: State = {
+          ...prev,
+          notiContent,
+          notiFlag: true,
+        };
+        // sessionStorage.setItem('@UIContext', JSON.stringify(updatedState));
+        return updatedState;
+      });
+
+      if (timer.current) clearTimeout(timer.current);
+      timer.current = setTimeout(() => closeNoti(), (duration ?? 3) * 1000);
+    },
+    [closeNoti],
   );
 
-  return <UIContext.Provider value={value} {...props} />;
+  const closeModal = React.useCallback(() => {
+    setState((prev) => {
+      const updatedState: State = {
+        ...prev,
+        modalFlag: false,
+      };
+      sessionStorage.setItem('@UIContext', JSON.stringify(updatedState));
+      return updatedState;
+    });
+    setTimeout(() => {
+      setState((prev) => {
+        const updatedState: State = {
+          ...prev,
+          modalContent: {
+            title: '',
+            content: '',
+            actionButton: { label: '확인', onClick: () => {} },
+            cancelButton: { label: '취소', onClick: () => {} },
+          },
+          modalFlag: false,
+        };
+        sessionStorage.setItem('@UIContext', JSON.stringify(updatedState));
+        return updatedState;
+      });
+    }, 300);
+  }, []);
+
+  const showModal = React.useCallback((modal: ModalContent) => {
+    setState((prev) => {
+      const updatedState: State = {
+        ...prev,
+        modalContent: modal,
+        modalFlag: true,
+      };
+      sessionStorage.setItem('@UIContext', JSON.stringify(updatedState));
+      return updatedState;
+    });
+  }, []);
+
+  React.useEffect(() => {
+    const storedState = sessionStorage.getItem('@UIContext');
+
+    if (storedState)
+      setState({
+        ...JSON.parse(storedState),
+        notiFlag: false,
+        notiContent: { variant: 'default', title: '', content: '' },
+        modalFlag: false,
+        modalContent: {
+          title: '',
+          content: '',
+          actionButton: { label: '확인', onClick: () => {} },
+          cancelButton: { label: '취소', onClick: () => {} },
+        },
+        muted: true,
+      });
+  }, []);
+
+  return (
+    <UIContext.Provider
+      value={{
+        ...state,
+        closeNoti,
+        showNoti,
+        closeModal,
+        showModal,
+      }}
+      {...props}
+    />
+  );
 };
 
 export const useUI = () => {

@@ -1,9 +1,14 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const fetcher: (url: string, init?: RequestInit) => Promise<any> = async (
+const fetcher: <T>(url: string, init?: RequestInit) => Promise<T> = async (
   url,
   init?,
 ) => {
   const response = await fetch(url, init);
+
+  if (response.status === 413) {
+    const error = new Error('File too large') as CustomError;
+    error.code = -999;
+    throw error;
+  }
 
   const contentType = response.headers.get('Content-Type');
   if (contentType && contentType.indexOf('application/json') !== -1) {
@@ -22,7 +27,14 @@ const fetcher: (url: string, init?: RequestInit) => Promise<any> = async (
 
     const { error } = await response.json();
 
-    throw error;
+    if (process.env.NODE_ENV === 'development') {
+      console.log(
+        `[fetcher.ts] Failed to fetch on ${init?.method ?? 'GET'} ${url}`,
+      );
+      console.log('[fetcher.ts] Recieved error:', error);
+    }
+
+    throw error as CustomError;
   }
 };
 

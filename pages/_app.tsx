@@ -1,11 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import '@assets/main.css';
 import 'nprogress/nprogress.css';
 
 import React from 'react';
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
 import Router from 'next/router';
 import NProgress from 'nprogress';
-import { Head, Layout } from '@components/core';
+
+// contexts
 import ManagedUIContext from '@components/ui/context';
 
 NProgress.configure({
@@ -19,23 +22,22 @@ Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
+const Noop: React.FC = ({ children }) => <>{children}</>;
+
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
+  const Layout = (Component as any).Layout || Noop;
+
   return (
     <>
       <Head>
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
-          rel="stylesheet"
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0"
         />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
-          rel="stylesheet"
-        />
+        <script type="text/javascript" src="/js/redirectIE.js" />
       </Head>
-
       <ManagedUIContext>
-        <Layout>
+        <Layout sidebar={(Component as any).Sidebar}>
           <Component {...pageProps} />
         </Layout>
       </ManagedUIContext>

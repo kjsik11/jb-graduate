@@ -1,6 +1,20 @@
 // Declarations for global interfaces & types
-type Data = {
-  hello: string;
-};
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { NextApiRequest } from 'next';
+import { ObjectId } from 'mongodb';
 
-// Declarations for untyped modules
+declare global {
+  interface RequestWithUserId extends NextApiRequest {
+    userId: ObjectId;
+  }
+
+  interface RequestWithFile extends RequestWithUserId {
+    files: any[];
+    file: any;
+  }
+
+  interface CustomError extends Error {
+    code?: number;
+    additionalInfo?: any;
+  }
+}

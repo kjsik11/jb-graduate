@@ -1,9 +1,6 @@
 import Git from '@components/icons/Git';
 import Insta from '@components/icons/Insta';
 import React from 'react';
-import styled from 'styled-components';
-
-const Root = styled.div``;
 
 const teamItems = [
   {
@@ -37,7 +34,7 @@ const teamItems = [
 ];
 const TeamPage: React.FC = () => {
   return (
-    <Root className="bg-gray-900">
+    <div className="bg-gray-900">
       <div className="mx-auto py-4 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-8">
         <div className="space-y-12">
           <div className="space-y-5 sm:space-y-4 md:max-w-xl lg:max-w-3xl xl:max-w-none">
@@ -95,7 +92,7 @@ const TeamPage: React.FC = () => {
           </ul>
         </div>
       </div>
-    </Root>
+    </div>
   );
 };
 

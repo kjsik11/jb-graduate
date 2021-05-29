@@ -1,13 +1,9 @@
 import React from 'react';
 import NextImage from 'next/image';
-import { Head } from '@components/core';
 
 const HomePage: React.FC = () => {
   return (
     <>
-      <Head>
-        <title>대충만든조 졸업작품</title>
-      </Head>
       <div className="flex items-center justify-center flex-col">
         <div className="max-w-7xl mx-auto text-center py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
           <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
