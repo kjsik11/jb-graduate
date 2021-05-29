@@ -1,26 +1,28 @@
 import React from 'react';
 import NextImage from 'next/image';
 
-const HomePage: React.FC = () => {
+// components
+import Common from '@components/layout/Common';
+import Button from '@components/ui/Button';
+import Link from '@components/ui/Link';
+
+const HomePage = () => {
   return (
     <>
       <div className="flex items-center justify-center flex-col">
         <div className="max-w-7xl mx-auto text-center py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
           <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
             <span className="block">2021 JBU SENIOR PROJECT</span>
-            <span className="block text-indigo-600 pt-4">
+            <span className="block text-lightBlue-400 pt-4">
               Window Artifacts Analysis
             </span>
           </h2>
           <div className="mt-8 flex justify-center">
-            <div className="inline-flex rounded-md shadow">
-              <a
-                href="/project"
-                className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
-              >
+            <Link href="/dashboard">
+              <Button className="inline-flex rounded-md shadow">
                 Let&apos;s analyze!
-              </a>
-            </div>
+              </Button>
+            </Link>
           </div>
         </div>
         <div className="w-full">
@@ -85,4 +87,5 @@ const HomePage: React.FC = () => {
   );
 };
 
+HomePage.Layout = Common;
 export default HomePage;

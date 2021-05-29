@@ -1,5 +1,15 @@
 module.exports = {
-  images: {
-    //domains: ['church-ondisplay.s3.ap-northeast-2.amazonaws.com'],
+  reactStrictMode: true,
+  async rewrites() {
+    return [
+      // {
+      //   source: '/signin',
+      //   destination: '/api/signin',
+      // },
+      {
+        source: '/signout',
+        destination: '/api/signout',
+      },
+    ];
   },
 };

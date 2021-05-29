@@ -2,48 +2,16 @@ import React from 'react';
 import cn from 'classnames';
 
 // components
-import ChevronRight from '@components/icons/ChevronRight';
 import Button from '@components/ui/Button';
 import Dashboard from '@components/layout/Dashboard';
+import SectionTitle from '@components/core/SectionTitle';
+import OtherAnalysis from '@components/custom/OtherAnalysis';
+import Link from '@components/ui/Link';
 
-const items = [
-  {
-    name: 'MFT',
-    initials: 'M',
-    href: '#',
-    bgColor: 'bg-pink-600',
-  },
-  {
-    name: 'EventLog',
-    initials: 'EL',
-    href: '#',
+// icons
+import { ChevronRightIcon } from '@heroicons/react/solid';
 
-    bgColor: 'bg-purple-600',
-  },
-  {
-    name: 'Prefetch ',
-    initials: 'P',
-    href: '#',
-
-    bgColor: 'bg-yellow-500',
-  },
-  {
-    name: 'JumpList',
-    initials: 'JL',
-    href: '#',
-
-    bgColor: 'bg-green-500',
-  },
-  {
-    name: 'LNK',
-    initials: 'L',
-    href: '#',
-
-    bgColor: 'bg-indigo-600',
-  },
-];
-
-const ProjectPage = () => {
+const PrefetchAnalysisPage = () => {
   const [file, setFile] = React.useState<File | null>(null);
   const [dragOverFlag, setDragOverFlag] = React.useState<boolean>(false);
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -76,11 +44,20 @@ const ProjectPage = () => {
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   return (
-    <>
-      <div className="max-w-4xl p-4">
-        <p className="mt-5 mb-4 text-4xl font-bold">
-          Window Artifacts Analysis Online Page
-        </p>
+    <div className="pt-4 sm:pt-8 md:pt-12 pb-32 px-6 md:px-8 lg:px-12 max-w-screen-xl mx-auto ">
+      <div className="p-4">
+        <div className="flex justify-between items-center">
+          <SectionTitle title="Prefetch" picture="/icon/prefetch.png" />
+          <div>
+            <Link
+              className="hover:opacity-80 ml-8 text-lightBlue-400 flex items-center"
+              href="/docs/prefetch"
+            >
+              See docs
+              <ChevronRightIcon className="w-5 h-5" />
+            </Link>
+          </div>
+        </div>
         <div
           className={cn(
             'h-48 rounded-lg mt-4 border-2 border-dashed border-gray-400 place-items-center hidden sm:grid mb-4',
@@ -130,7 +107,7 @@ const ProjectPage = () => {
             )}
           </div>
           <Button
-            disabled={loading}
+            disabled={loading || !file}
             onClick={() => {
               if (file) handleSubmit(file);
               else setMessage('파일이 없습니다 분석할 파일을 추가해주세요');
@@ -140,56 +117,20 @@ const ProjectPage = () => {
           </Button>
         </div>
         <p className="text-2xl font-semibold mt-4">{message}</p>
-        <div>
-          <p className="w-full text-center text-3xl font-bold mt-10">
-            분석 가능한 파일 목록
-          </p>
-          <ul className="mt-6 grid grid-cols-1 gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-4xl mx-auto">
-            {items.map((item) => (
-              <li
-                key={item.name}
-                className="col-span-1 flex shadow-sm rounded-md h-14"
-              >
-                <div
-                  className={cn(
-                    item.bgColor,
-                    'flex-shrink-0 flex items-center justify-center w-16 text-white text-sm font-medium rounded-l-md',
-                  )}
-                >
-                  {item.initials}
-                </div>
-                <div className="flex-1 flex items-center justify-between border-t border-r border-b border-gray-200 bg-white rounded-r-md truncate">
-                  <div className="flex-1 px-4 py-2 text-sm truncate">
-                    <a
-                      href={item.href}
-                      className="text-gray-900 font-medium hover:text-gray-600"
-                    >
-                      {item.name}
-                    </a>
-                  </div>
-                  <div className="flex-shrink-0 pr-2">
-                    <button className="w-8 h-8 bg-white inline-flex items-center justify-center text-gray-400 rounded-full  hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                      <span className="sr-only">Open options</span>
-                      <ChevronRight className="w-5 h-5" aria-hidden="true" />
-                    </button>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <OtherAnalysis />
       </div>
       <input
         ref={inputRef}
         type="file"
+        accept=".pf"
         className="hidden"
         onChange={(e) => {
           if (e.target.files && e.target.files[0]) setFile(e.target.files[0]);
         }}
       />
-    </>
+    </div>
   );
 };
 
-ProjectPage.Layout = Dashboard;
-export default ProjectPage;
+PrefetchAnalysisPage.Layout = Dashboard;
+export default PrefetchAnalysisPage;

@@ -1,15 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
-import NextLink from 'next/link';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import {
+  CalendarIcon,
   CogIcon,
-  CubeTransparentIcon,
-  DatabaseIcon,
   HomeIcon,
   MenuIcon,
-  ShoppingCartIcon,
   ViewGridIcon,
   XIcon,
 } from '@heroicons/react/outline';
@@ -22,25 +19,14 @@ import Avatar from '@components/ui/Avatar';
 import Link from '@components/ui/Link';
 
 // librarise
-import useUser from '@lib/useUser';
 import Button from '@components/ui/Button';
+import { UserGroupIcon } from '@heroicons/react/solid';
 
 const sidebarNavigation = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon, key: 'dashboard' },
-  { name: 'AI', href: '/project', icon: ViewGridIcon, key: 'project' },
-  { name: 'Dataset', href: '/dataset', icon: DatabaseIcon, key: 'dataset' },
-  {
-    name: 'Model',
-    href: '/model',
-    icon: CubeTransparentIcon,
-    key: 'model',
-  },
-  {
-    name: 'Marketplace',
-    href: '/marketplace',
-    icon: ShoppingCartIcon,
-    key: 'marketplace',
-  },
+  { name: 'Team', href: '/team', icon: UserGroupIcon, key: 'team' },
+  { name: 'Schedule', href: '/schedule', icon: CalendarIcon, key: 'schedule' },
+  { name: 'Contact', href: '/contact', icon: ViewGridIcon, key: 'contact' },
   { name: 'Settings', href: '/settings', icon: CogIcon, key: 'settings' },
 ];
 const userNavigation = [
@@ -55,9 +41,14 @@ interface Props {
 const Dashboard: React.FC<Props> = ({ sidebar, children }) => {
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-  const { modalFlag, modalContent, notiFlag, closeNoti, notiContent } = useUI();
-
-  const { user } = useUser({ redirectTo: '/' });
+  const {
+    modalFlag,
+    modalContent,
+    notiFlag,
+    closeNoti,
+    notiContent,
+    showNoti,
+  } = useUI();
 
   return (
     <>
@@ -66,7 +57,10 @@ const Dashboard: React.FC<Props> = ({ sidebar, children }) => {
         <div className="hidden w-28 bg-lightBlue-700 overflow-y-auto md:block">
           <div className="w-full py-6 flex flex-col items-center h-full">
             <div className="flex-shrink-0 flex items-center">
-              <img className="h-8 w-auto" src="/logo.png" alt="Aiport logo" />
+              <Link href="/" className="text-xl text-white">
+                LOGO
+              </Link>
+              {/* <img className="h-8 w-auto" src="/logo.png" alt="logo" /> */}
             </div>
             <div className="flex-1 mt-6 w-full px-2 space-y-1 flex flex-col items-center">
               {sidebarNavigation
@@ -108,15 +102,21 @@ const Dashboard: React.FC<Props> = ({ sidebar, children }) => {
                 ))}
               <div className="flex-grow" aria-hidden="true" />
               <div className="flex flex-col items-center text-xs text-lightBlue-100 font-medium">
-                <Avatar size="md" src={user?.profile ?? undefined} />
-                <span className="mt-2">{user?.username}</span>
+                <Avatar size="md" src={undefined} />
+                <span className="mt-2">{'test user'}</span>
               </div>
               <div className="pt-2">
-                <NextLink href="/signout">
-                  <Button size="sm" color="white">
-                    <span className="text-xs text-lightBlue-600">Signout</span>
-                  </Button>
-                </NextLink>
+                {/* <NextLink href="/signout"> */}
+                <Button
+                  onClick={() =>
+                    showNoti({ title: '준비중인 기능입니다', variant: 'alert' })
+                  }
+                  size="sm"
+                  color="white"
+                >
+                  <span className="text-xs text-lightBlue-600">Signout</span>
+                </Button>
+                {/* </NextLink> */}
               </div>
             </div>
           </div>
@@ -177,11 +177,9 @@ const Dashboard: React.FC<Props> = ({ sidebar, children }) => {
                     </div>
                   </Transition.Child>
                   <div className="flex-shrink-0 px-4 flex items-center">
-                    <img
-                      className="h-8 w-auto"
-                      src="/logo.png"
-                      alt="Aiport logo"
-                    />
+                    <Link href="/" className="text-xl text-white">
+                      LOGO
+                    </Link>
                   </div>
                   <div className="mt-5 flex-1 h-0 px-2 overflow-y-auto">
                     <nav className="h-full flex flex-col justify-between">
@@ -218,12 +216,8 @@ const Dashboard: React.FC<Props> = ({ sidebar, children }) => {
                           ))}
                       </div>
                       <div className="py-2 px-3 flex items-center text-sm font-medium text-lightBlue-100">
-                        <Avatar
-                          className="mr-3"
-                          size="sm"
-                          src={user?.profile ?? undefined}
-                        />
-                        <span>{user?.username || 'loading...'}</span>
+                        <Avatar className="mr-3" size="sm" src={undefined} />
+                        <span>{'test user'}</span>
                         <div className="flex-grow" aria-hidden="true" />
                         <Link href="/signout" className="hover:opacity-60">
                           Signout
@@ -254,7 +248,7 @@ const Dashboard: React.FC<Props> = ({ sidebar, children }) => {
               </button>
               {/* LOGO AREA */}
               <span className="absolute transform left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl font-serif font-medium">
-                Aiport
+                LOGO
               </span>
               <div className="mr-4 flex items-center space-x-4 sm:ml-6 sm:space-x-6">
                 {/* Profile dropdown */}
@@ -264,7 +258,7 @@ const Dashboard: React.FC<Props> = ({ sidebar, children }) => {
                       <div>
                         <Menu.Button className="bg-white rounded-full flex text-sm">
                           <span className="sr-only">Open user menu</span>
-                          <Avatar size="sm" src={user?.profile ?? undefined} />
+                          <Avatar size="sm" src={undefined} />
                         </Menu.Button>
                       </div>
                       <Transition
@@ -306,7 +300,7 @@ const Dashboard: React.FC<Props> = ({ sidebar, children }) => {
           </header>
 
           {/* Main content */}
-          <div className="flex-1 flex items-stretch overflow-hidden">
+          <div className="flex-1 flex items-stretch overflow-auto">
             {/* Secondary column (hidden on smaller screens) */}
             <aside
               className={cn(

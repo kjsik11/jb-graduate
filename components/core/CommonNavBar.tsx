@@ -2,7 +2,9 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
 
+// components
 import Link from '@components/ui/Link';
+import { useUI } from '@components/ui/context';
 
 interface Props {
   className?: string;
@@ -10,6 +12,7 @@ interface Props {
 
 const CommonNavBar: React.FC<Props> = ({ className }) => {
   const router = useRouter();
+  const { showNoti } = useUI();
 
   return (
     <nav className={cn(className, 'bg-white')}>
@@ -17,12 +20,14 @@ const CommonNavBar: React.FC<Props> = ({ className }) => {
         <Link className="flex-shrink-0 flex items-center space-x-2" href="/">
           <img className="h-8 w-auto" src="/logo.png" alt="" />
           <span className="hidden md:inline text-3xl font-serif font-medium">
-            Aiport
+            JBU Forensic
           </span>
         </Link>
         <div className="ml-6 flex space-x-2 lg:space-x-8">
-          <Link
-            href="/contact"
+          <button
+            onClick={() =>
+              showNoti({ title: '준비중인 기능입니다', variant: 'alert' })
+            }
             className={cn(
               'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium',
               router.asPath === '/contact'
@@ -31,9 +36,11 @@ const CommonNavBar: React.FC<Props> = ({ className }) => {
             )}
           >
             Contact
-          </Link>
-          <Link
-            href="/docs"
+          </button>
+          <button
+            onClick={() =>
+              showNoti({ title: '준비중인 기능입니다', variant: 'alert' })
+            }
             className={cn(
               'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium',
               router.asPath === '/docs'
@@ -42,9 +49,11 @@ const CommonNavBar: React.FC<Props> = ({ className }) => {
             )}
           >
             Docs
-          </Link>
-          <Link
-            href="/signin"
+          </button>
+          <button
+            onClick={() =>
+              showNoti({ title: '준비중인 기능입니다', variant: 'alert' })
+            }
             className={cn(
               'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium',
               router.asPath === '/signin'
@@ -53,7 +62,7 @@ const CommonNavBar: React.FC<Props> = ({ className }) => {
             )}
           >
             Sign&nbsp;in
-          </Link>
+          </button>
         </div>
       </div>
     </nav>

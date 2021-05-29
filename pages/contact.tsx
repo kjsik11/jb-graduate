@@ -5,7 +5,7 @@ import Dashboard from '@components/layout/Dashboard';
 import Button from '@components/ui/Button';
 import Link from '@components/ui/Link';
 
-const SchedulePage = () => {
+const ContactPage = () => {
   return (
     <>
       <div className="h-full">
@@ -28,5 +28,5 @@ const SchedulePage = () => {
   );
 };
 
-SchedulePage.Layout = Dashboard;
-export default SchedulePage;
+ContactPage.Layout = Dashboard;
+export default ContactPage;

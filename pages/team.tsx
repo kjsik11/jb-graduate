@@ -1,7 +1,13 @@
-import Git from '@components/icons/Git';
-import Insta from '@components/icons/Insta';
 import React from 'react';
 
+// components
+import Dashboard from '@components/layout/Dashboard';
+import Link from '@components/ui/Link';
+import SectionTitle from '@components/core/SectionTitle';
+
+// icons
+import Git from '@components/icons/Git';
+import Insta from '@components/icons/Insta';
 const teamItems = [
   {
     name: '김종식',
@@ -28,72 +34,62 @@ const teamItems = [
     name: '염정현',
     description: 'Artifacts 분석 및 개발',
     url: '/',
-    insta: null,
+    insta: '',
     git: 'https://github.com/yeom0331',
   },
 ];
-const TeamPage: React.FC = () => {
-  return (
-    <div className="bg-gray-900">
-      <div className="mx-auto py-4 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-8">
-        <div className="space-y-12">
-          <div className="space-y-5 sm:space-y-4 md:max-w-xl lg:max-w-3xl xl:max-w-none">
-            <h2 className="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
-              Meet our team
-            </h2>
-          </div>
 
-          <ul className="space-y-4 max-w-3xl mx-auto sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0">
-            {teamItems.map((item, idx) => (
-              <li
-                key={`${item.name}-${idx}`}
-                className="py-10 px-6 bg-gray-800 text-center rounded-lg xl:px-10 xl:text-left"
-              >
-                <div className="space-y-6 xl:space-y-10">
+const DashboardPage = () => {
+  return (
+    <div className="pt-4 sm:pt-8 md:pt-12 pb-32 px-6 md:px-8 lg:px-12 max-w-screen-xl mx-auto ">
+      <div className="pb-6 border-b border-gray-200">
+        <SectionTitle title="Meet out team" picture="/icon/team.png" />
+      </div>
+      <div className="pt-8">
+        <div className="max-w-md mx-auto space-y-20 grid gap-5 lg:space-y-0 lg:grid-cols-2 lg:max-w-screen-md xl:gap-16">
+          {teamItems.map((person) => (
+            <div key={person.name}>
+              <div className="space-y-4">
+                <div className="aspect-w-3 aspect-h-2">
                   <img
-                    className="mx-auto h-40 w-40 rounded-full xl:w-56 xl:h-56"
+                    className="object-cover shadow-lg rounded-lg"
                     src="/source/profile.webp"
                     alt=""
                   />
-                  <div className="space-y-2 xl:flex xl:items-center xl:justify-between">
-                    <div className="font-medium text-lg leading-6 space-y-1">
-                      <h3 className="text-white">{item.name}</h3>
-                      <p className="text-indigo-400">{item.description}</p>
-                    </div>
+                </div>
 
-                    <ul className="flex justify-center space-x-5">
-                      <li>
-                        <a
-                          target="blank"
-                          href={item.git}
-                          className="text-gray-400 hover:text-gray-300"
-                        >
-                          <span className="sr-only">Git</span>
-                          <Git className="w-5 h-5 hover:opacity-80" />
-                        </a>
-                      </li>
-                      <li>
-                        {item.insta && (
-                          <a
-                            target="blank"
-                            href={item.insta}
-                            className="text-gray-400 hover:text-gray-300"
-                          >
-                            <span className="sr-only">insta</span>
-                            <Insta className="w-5 h-5 hover:opacity-80" />
-                          </a>
-                        )}
-                      </li>
-                    </ul>
+                <div className="space-y-2">
+                  <div className="text-lg leading-6 font-medium space-y-1">
+                    <h3>{person.name}</h3>
+                    <p className="text-lightBlue-400">{person.description}</p>
+                  </div>
+                  <div className="flex space-x-5">
+                    <div>
+                      <Link
+                        href={person.git}
+                        className="text-gray-400 hover:text-gray-500"
+                      >
+                        <Git className="w-5 h-5 text-gray-800" />
+                      </Link>
+                    </div>
+                    <div>
+                      <Link
+                        href={person.insta}
+                        className="text-gray-400 hover:text-gray-500"
+                      >
+                        <Insta className="w-5 h-5 text-gray-800" />
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </li>
-            ))}
-          </ul>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
 };
 
-export default TeamPage;
+DashboardPage.Layout = Dashboard;
+export default DashboardPage;

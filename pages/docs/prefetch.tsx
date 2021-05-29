@@ -5,7 +5,7 @@ import Dashboard from '@components/layout/Dashboard';
 import Button from '@components/ui/Button';
 import Link from '@components/ui/Link';
 
-const SchedulePage = () => {
+const PrefetchDocsPage = () => {
   return (
     <>
       <div className="h-full">
@@ -28,5 +28,5 @@ const SchedulePage = () => {
   );
 };
 
-SchedulePage.Layout = Dashboard;
-export default SchedulePage;
+PrefetchDocsPage.Layout = Dashboard;
+export default PrefetchDocsPage;
