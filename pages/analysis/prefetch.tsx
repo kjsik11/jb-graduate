@@ -105,7 +105,7 @@ const PrefetchAnalysisPage = () => {
         >
           분석할 파일을 여기에 드래그해주세요
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mt-8 sm:mt-0">
           <div className="flex items-center gap-4">
             <Button
               onClick={() => {

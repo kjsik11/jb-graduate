@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
+import NextLink from 'next/link';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import {
   CalendarIcon,
@@ -31,7 +32,7 @@ const sidebarNavigation = [
 ];
 const userNavigation = [
   // { name: 'Your Profile', href: '#' },
-  { name: 'Sign out', href: '/signout' },
+  { name: 'Sign out', href: '/' },
 ];
 
 interface Props {
@@ -106,17 +107,11 @@ const Dashboard: React.FC<Props> = ({ sidebar, children }) => {
                 <span className="mt-2">{'test user'}</span>
               </div>
               <div className="pt-2">
-                {/* <NextLink href="/signout"> */}
-                <Button
-                  onClick={() =>
-                    showNoti({ title: '준비중인 기능입니다', variant: 'alert' })
-                  }
-                  size="sm"
-                  color="white"
-                >
-                  <span className="text-xs text-lightBlue-600">Signout</span>
-                </Button>
-                {/* </NextLink> */}
+                <NextLink href="/">
+                  <Button size="sm" color="white">
+                    <span className="text-xs text-lightBlue-600">Signout</span>
+                  </Button>
+                </NextLink>
               </div>
             </div>
           </div>
@@ -219,7 +214,7 @@ const Dashboard: React.FC<Props> = ({ sidebar, children }) => {
                         <Avatar className="mr-3" size="sm" src={undefined} />
                         <span>{'test user'}</span>
                         <div className="flex-grow" aria-hidden="true" />
-                        <Link href="/signout" className="hover:opacity-60">
+                        <Link href="/" className="hover:opacity-60">
                           Signout
                         </Link>
                       </div>
