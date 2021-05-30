@@ -15,9 +15,9 @@ const SectionTitle: React.FC<Props> = ({ className, picture, title }) => {
         src={picture}
         alt={`${title}-icon`}
         layout="fixed"
-        width={64}
-        height={64}
-        sizes="64px"
+        width={48}
+        height={48}
+        sizes="48px"
       />
       <h1 className="text-3xl font-medium capitalize">{title}</h1>
     </div>

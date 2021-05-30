@@ -4,10 +4,20 @@ import React from 'react';
 import Dashboard from '@components/layout/Dashboard';
 import Link from '@components/ui/Link';
 import SectionTitle from '@components/core/SectionTitle';
+import BreadCrumb from '@components/ui/BreadCrumb';
 
 // icons
 import Git from '@components/icons/Git';
 import Insta from '@components/icons/Insta';
+
+const BreadPages = [
+  {
+    name: 'team',
+    href: '/team',
+    current: true,
+  },
+];
+
 const teamItems = [
   {
     name: '김종식',
@@ -42,6 +52,8 @@ const teamItems = [
 const DashboardPage = () => {
   return (
     <div className="pt-4 sm:pt-8 md:pt-12 pb-32 px-6 md:px-8 lg:px-12 max-w-screen-xl mx-auto ">
+      <BreadCrumb pages={BreadPages} className="mb-8" />
+
       <div className="pb-6 border-b border-gray-200">
         <SectionTitle title="Meet out team" picture="/icon/team.png" />
       </div>

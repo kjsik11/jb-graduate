@@ -7,9 +7,23 @@ import Dashboard from '@components/layout/Dashboard';
 import SectionTitle from '@components/core/SectionTitle';
 import OtherAnalysis from '@components/custom/OtherAnalysis';
 import Link from '@components/ui/Link';
+import BreadCrumb from '@components/ui/BreadCrumb';
 
 // icons
 import { ChevronRightIcon } from '@heroicons/react/solid';
+
+const BreadPages = [
+  {
+    name: 'analysis',
+    href: '/analysis',
+    current: false,
+  },
+  {
+    name: 'lnk',
+    href: '/analysis/lnk',
+    current: true,
+  },
+];
 
 const LnkAnalysisPage = () => {
   const [file, setFile] = React.useState<File | null>(null);
@@ -46,6 +60,8 @@ const LnkAnalysisPage = () => {
   return (
     <div className="pt-4 sm:pt-8 md:pt-12 pb-32 px-6 md:px-8 lg:px-12 max-w-screen-xl mx-auto ">
       <div className="p-4">
+        <BreadCrumb pages={BreadPages} className="mb-8" />
+
         <div className="flex justify-between items-center">
           <SectionTitle title="LNK" picture="/icon/lnk.png" />
           <div>
