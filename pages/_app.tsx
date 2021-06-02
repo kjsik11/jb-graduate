@@ -29,7 +29,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
 
   React.useEffect(() => {
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js');
+      navigator.serviceWorker.register('/pages/sw.js');
     }
   }, []);
 
